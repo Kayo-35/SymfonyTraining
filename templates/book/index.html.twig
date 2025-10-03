@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book list{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>This Page Should Show a book list!</h1>
+    <table class="table">
+        <thead class="table-dark">
+            <th>Name</th>
+            <th>Author</th>
+            <th>Genre</th>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>
+                    <a href="{{ path('book.show',{id: book.id}) }}" class="link-primary">{{ book.name }}</a>
+                </td>
+                <td>
+                    {{ book.genre.name }}
+                </td>
+                <td>
+                    {{ book.author.name }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

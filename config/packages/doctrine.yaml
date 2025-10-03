@@ -52,3 +52,6 @@ when@prod:
                     adapter: cache.app
                 doctrine.system_cache_pool:
                     adapter: cache.system
+        validation:
+            auto_mapping:
+                'App\Entity\' : []

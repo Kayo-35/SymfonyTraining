@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book Info{% endblock %}
+
+{% block body%}
+<div class="container border rounded rounded-5 p-3 w-50">
+    <div class="d-flex justify-content-center flex-column">
+        <div class="d-flex justify-content-center">
+            {% if book.name == 'Mistborn' %}
+                <img class="img-fluid" src="{{ asset('img/mistborn.jpg') }}">
+            {% elseif book.name == 'Lord Of The Rings' %}
+                <img class="img-fluid" src="{{ asset('img/lordOfTheRings.jpg') }}">
+            {% else %}
+                <img class="img-fluid" src="{{ asset('img/asoiaf.jpg') }}">
+            {% endif %}
+        </div>
+        <div>
+            <h2 class="text-center">Metadados</h2>
+            <ul>
+                <li class="h3">Name: {{ book.name }}</li>
+                <li class="h4">Author: {{ book.author.name }}</li>
+                <li class="h4">Genre: {{ book.genre.name }}</li>
+            </ul>
+            <p class="fst-italic">
+                {{ book.sinopse }}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
