@@ -20,13 +20,11 @@ class BookType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => "Book Name",
                 'attr' => [
-                    'class' => "form-control",
                     'placeholder' => 'ex: Lord of The Rings: The Two Towers'
                 ],
-                'help' => 'Type the name of your book!'
             ])
             ->add('sinopse', TextType::class, [
-                'label' => "The Sinopse: An mind-blowing description of your book!",
+                'label' => "Sinopse",
                 'attr' => [
                     'class' => "form-control",
                     'placeholder' => "Be creative!"
@@ -34,14 +32,14 @@ class BookType extends AbstractType
             ])
             ->add('author', EntityType::class, [
                 'class' => Author::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'attr' => [
                     'class' => "form-select",
                 ]
             ])
             ->add('genre', EntityType::class, [
                 'class' => Genre::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'attr' => [
                     'class' => "form-select"
                 ]

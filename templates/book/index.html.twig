@@ -6,6 +6,12 @@
 
 <div class="container">
     <h1>This Page Should Show a book list!</h1>
+    <div class="d-flex justify-content-end m-2">
+        <a class="btn btn-primary" href="{{ path('book.create') }}">
+            Create a Book!
+            {{ ux_icon('bi:plus-square', {style: 'height: 1em;'}) }}
+        </a>
+    </div>
     <table class="table">
         <thead class="table-dark">
             <th>Name</th>

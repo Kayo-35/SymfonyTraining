@@ -11,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Repository\BookRepository;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -57,32 +56,52 @@ final class BookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->dbManager->persist($book);
             $this->dbManager->flush();
-            $this->addFlash('created', 'A Bran New Book was created!');
             return $this->redirectToRoute('book.index');
         }
 
         return $this->render('book/create.html.twig', [
-            "form" =>  $form,
-            "book" => $book
+            "form" =>  $form->createView(),
+            "book" => $book,
+            "method" => 'POST'
         ]);
     }
 
     //Edit
     #[Route('/{id}/edit', name: 'edit', requirements: ["id" => Requirement::POSITIVE_INT], methods: ['GET'])]
-    public function edit()
+    public function edit(int $id): Response
     {
-        return $this->render('book/edit.html.twig');
+        $book = $this->dbManager->find(Book::class, $id);
+        $form = $this->createForm(BookType::class, $book);
+        return $this->render('book/edit.html.twig', [
+            "form" => $form->createView(),
+            "method" => 'PUT'
+        ]);
     }
     //Update
     #[Route('/{id}/edit', name: 'put', requirements: ["id" => Requirement::POSITIVE_INT], methods: ['PUT'])]
-    public function update()
+    public function update(Book $book, Request $request): Response
     {
-        //Do the things
+        $bookData = $request->request->all()['book'];
+        $book->setName($bookData['name'])
+            ->setAuthor($this->dbManager->find(Author::class, (int) $bookData['author']))
+            ->setGenre($this->dbManager->find(Genre::class, (int) $bookData['genre']))
+            ->setSinopse($bookData['sinopse']);
+
+        $this->dbManager->persist($book);
+        $this->dbManager->flush();
+
+        return $this->redirectToRoute('book.show',[
+            "id" => $book->getId()
+        ]);
     }
     //Delete
     #[Route('/{id}', name: 'delete', requirements: ["id" => Requirement::POSITIVE_INT], methods: ['DELETE'])]
-    public function destroy()
+    public function destroy(int $id): Response
     {
-        //Destroy the instance
+        $book = $this->dbManager->find(Book::class, $id);
+        $this->dbManager->remove($book);
+        $this->dbManager->flush();
+
+        return $this->redirectToRoute('book.index');
     }
 }

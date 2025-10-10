@@ -1,0 +1,65 @@
+<div class="d-flex flex-column align-items-center m-5">
+    <h1>{{ title }}</h1>
+    <div class="row w-50 border rounded-5 p-5">
+        {{ form_start(form, {'method': method}) }}
+            <div class=" col-sm-12 mb-3">
+                <label for="{{ field_id(form.name) }}" class="form-label">{{ form_label(form.name)}}</label>
+                <input name="{{ field_name(form.name) }}"
+                    id="{{ field_id(form.name) }}"
+                    class="form-control"
+                    placeholder="{{ field_label(form.name) }}"
+                    value="{{ field_value(form.name) }}"
+                >
+                {% if form_errors(form.name) %}
+                    <div class="badge text-bg-danger fs-6">
+                        {{ form_errors(form.name) }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-12 my-3">
+                <label for="{{ field_id(form.sinopse) }}" class="form-label">{{ form_label(form.sinopse) }}</label>
+                <input name="{{ field_name(form.sinopse) }}"
+                    id="{{ field_id(form.sinopse) }}"
+                    class="form-control"
+                    placeholder="{{ field_label(form.name) }}"
+                    value="{{ field_value(form.name) }}"
+                >
+                {% if form_errors(form.sinopse) %}
+                    <div class="badge text-bg-danger fs-6">
+                        {{ form_errors(form.sinopse) }}
+                    </div>
+                {% endif %}
+           </div>
+           <div class="col-sm-12 my-3">
+               <label for="{{ field_id(form.author) }}" class="form-label">
+                   {{ form_label(form.author) }}
+               </label>
+               <select name="{{ field_name(form.author) }}" id="{{ field_id(form.author) }}" class="form-select">
+                   <option value="">Choose the author: </option>
+                   {% for author, value in field_choices(form.author) %}
+                        <option value="{{ value }}" {{ value == field_value(form.author) ? 'selected' : ''}}>
+                            {{ author }}
+                        </option>
+                   {% endfor %}
+               </select>
+           </div>
+           <div class="col-sm-12 my-3">
+               <label for="{{ field_id(form.genre) }}" class="form-label">
+                   {{ form_label(form.genre) }}
+               </label>
+               <select name="{{ field_name(form.genre) }}" id="{{ field_id(form.genre) }}" class="form-select">
+                   <option value="">Choose the genre: </option>
+                   {% for genre, value in field_choices(form.genre) %}
+                        <option value="{{ value }}" {{ value == field_value(form.genre) ? 'selected' : '' }}>
+                            {{ genre }}
+                        </option>
+                   {% endfor %}
+               </select>
+           </div>
+            <button type="submit" class="btn btn-primary">
+                Create
+                {{ ux_icon('bi:plus-square', {style: 'height: 1rem'}) }}
+            </button>
+        {{ form_end(form) }}
+   </div>
+</div>

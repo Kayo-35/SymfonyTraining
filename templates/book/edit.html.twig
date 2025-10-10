@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Edit Book {% endblock %}
+
+{% block body %}
+    {{ include('components/forms/book.html.twig', {form: form, title: 'Edit the Book', method: method}) }}
+{% endblock %}

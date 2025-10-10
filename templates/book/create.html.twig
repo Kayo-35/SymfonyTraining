@@ -4,48 +4,6 @@
 
 {% block body %}
 
-<div class="container m-5 border rounded-5 p-5">
-    <h1>Book creation!</h1>
-    {% for message in app.flashes('created') %}
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    {% endfor %}
-
-    <div class="row">
-        {{ form_start(form) }}
-            <div class="col-md-4 col-sm-12">
-                {{ form_label(form.name, null, {'label_attr': {'class' : 'form-label'}}) }}
-                {{ form_widget(form.name) }}
-                {{ form_errors(form.name) }}
-                {% if form.name.vars.help %}
-                    <div class="alert alert-primary p-1 mt-1">
-                        {{ form.name.vars.help }}
-                    </div>
-                {% endif %}
-            </div>
-            <div class="col-md-4 col-sm-12">
-                {{ form_label(form.sinopse,null, {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.sinopse) }}
-                {{ form_errors(form.sinopse) }}
-                {% if form.sinopse.vars.help %}
-                    <div class="alert alert-primary p-1 mt-1">
-                        {{ form.sinopse.vars.help }}
-                    </div>
-                {% endif %}
-            </div>
-            <button type="submit" class="btn btn-outline-primary">
-                Create
-            </button>
-       {{ form_end(form) }}
-   </div>
-</div>
+{{ include('components/forms/book.html.twig',{form: form, title: 'Create a new book', method: method}) }}
 
 {% endblock %}
